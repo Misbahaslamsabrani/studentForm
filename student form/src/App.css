@@ -1,0 +1,12 @@
+
+.but{
+    margin: 0 0 0 15%; 
+}
+.but2{
+    margin: 0 0 0 30%;
+}
+table{width: 100%; margin: 2% 0 5%;}
+thead{background-color: rgba(179, 178, 178, 0.699); border: 1px solid rgb(114, 113, 113)}
+tbody{border: 1px solid grey}
+td{border-bottom: 1px solid rgb(143, 142, 142);}
+.heading{font-size: 300%; margin: 3% auto; color: darkblue;}
