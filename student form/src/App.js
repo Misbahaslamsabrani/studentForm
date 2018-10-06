@@ -1,10 +1,44 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-
-import InputField from './formInput1';
-import ButtonCom from './button1';
+import { withStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
+import FormLabel from '@material-ui/core/FormLabel';
+import ButtonCom from './button1'
 import Mytr from './showTr';
 import './App.css';
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+  formControl: {
+    margin: theme.spacing.unit * 3,
+  },
+  group: {
+    margin: `${theme.spacing.unit}px 0`,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  check:{
+    display: "grid",
+  justifyContent:"center",
+  }
+});
 
 class App extends Component {
   constructor(){
@@ -68,7 +102,9 @@ deleitem = (index) => {
 addMore = () => {
   this.setState({onAdd: false})
 }
+
   render() {
+    const { classes } = this.props;
     if(this.state.onAdd){
     return (<div><table>
       <thead>
@@ -79,9 +115,10 @@ addMore = () => {
           <Mytr arr={this.state.allStudent} deleitem={this.deleitem} edititem={this.edititem}/>
     </table> <div className="but2"><button className="btn btn-primary" onClick={this.addMore}>Add More Student</button></div></div>)}
     return (
-      <div className="App">
-        
-        <div className="heading">Student Form</div>
+      <div className={classes.check}>
+        <Typography variant="display3" gutterBottom>
+        Student Form
+      </Typography>
         <form onSubmit={this.submitForm} className="form-group">
           <TextField
           id="studentName"
@@ -90,6 +127,7 @@ addMore = () => {
           value={this.state.studentName}
           onChange={this.changeField} 
           margin="normal"
+          className={classes.textField}
         />
           
           <br /> <br />
@@ -101,17 +139,29 @@ addMore = () => {
           onChange={this.changeField} 
           margin="normal"
           type="number"
+          className={classes.textField}
         />
           <br /> <br />
-          <label htmlFor="gender">Gender:</label>  &nbsp; &nbsp;
-          <InputField type="radio"  value="Female" name="studentGender" id="female" changeField={this.changeField} /> Female &nbsp;
-          <InputField type="radio" value="Male" name="studentGender" id="male" changeField={this.changeField} /> Male
-          <br /> <br />
-          <div className="but"><ButtonCom className="btn btn-primary" text="Add Student"/></div>
+          
+          <FormLabel component="legend">Gender</FormLabel>
+          <RadioGroup
+            aria-label="Gender"
+            name="studentGender"
+            className={classes.group}
+            value={this.state.studentGender}
+            onChange={this.changeField}
+          >
+            <FormControlLabel value="female" control={<Radio color="primary" />} 
+            label="Female" />
+            <FormControlLabel value="male" control={<Radio color="primary" />}
+             label="Male" />
+          </RadioGroup>
+        <ButtonCom className="btn btn-primary" text="Add Student" />
+      
         </form>
         </div>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
